@@ -7,7 +7,7 @@ import {
 } from "recharts";
 import { ChevronLeft, TrendingUp, Target, Zap, Award, Activity } from "lucide-react";
 import Navbar from "../components/Navbar";
-import axios from "axios";
+import api from "../api";
 
 /* ─── helpers ─────────────────────────────────────────── */
 const ROLE_LABELS = {
@@ -99,8 +99,8 @@ const AnalyticsPage = () => {
   useEffect(() => {
     const headers = { Authorization: `Bearer ${token}` };
     Promise.all([
-      axios.get(`${import.meta.env.VITE_API_URL}/interview/sessions?limit=100&sort=oldest`, { headers }),
-      axios.get(`${import.meta.env.VITE_API_URL}/auth/stats`, { headers }),
+      api.get("/interview/sessions?limit=100&sort=oldest"),
+      api.get("/auth/stats"),
     ]).then(([sessRes, statsRes]) => {
       setSessions(sessRes.data.sessions ?? []);
       setStats(statsRes.data);

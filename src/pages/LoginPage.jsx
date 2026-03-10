@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 import { useAuth } from "../context/AuthContext";
 import logo from "../assets/logo8-bgremove.png";
-
-// force rebuild
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -41,8 +39,7 @@ const LoginPage = () => {
     setLoading(true);
     setServerErrors("");
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/auth/login`,
+      const response = await api.post("/auth/login",
         formData,
       );
       const token = response.data.access_token;

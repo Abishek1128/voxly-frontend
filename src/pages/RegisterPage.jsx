@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
@@ -31,7 +31,7 @@ const RegisterPage = () => {
     if (!validate()) return;
     setLoading(true);
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, formData);
+      await api.post("/auth/register", formData);
       navigate("/check-email");
     } catch (error) {
       alert(error.response?.data?.detail || "Something went wrong");

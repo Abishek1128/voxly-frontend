@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 
 const VerifyEmailPage = () => {
   const [show, setShow] = useState(false);
@@ -15,7 +15,7 @@ const VerifyEmailPage = () => {
     if (!token) { setStatus("Invalid verification link ❌"); return; }
     const verify = async () => {
       try {
-        await axios.get(`${import.meta.env.VITE_API_URL}/auth/verify?token=${token}`);
+        await api.get(`/auth/verify?token=${token}`);
         setStatus("Email verified successfully ✅");
         setTimeout(() => navigate("/dashboard"), 3000);
       } catch (error) {

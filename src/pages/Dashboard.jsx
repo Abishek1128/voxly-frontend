@@ -4,7 +4,7 @@
 // import ModernDropdown from "../components/Dropdown";
 // import Navbar from "../components/Navbar";
 // import { useAuth } from "../context/AuthContext";
-// import axios from "axios";
+// import api from "../api";
 
 // /* ── helper: map role slug → readable label ── */
 // const ROLE_LABELS = {
@@ -310,7 +310,7 @@ import { useNavigate } from "react-router-dom";
 import ModernDropdown from "../components/Dropdown";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
-import axios from "axios";
+import api from "../api";
 
 /* ── helper: map role slug → readable label ── */
 const ROLE_LABELS = {
@@ -359,10 +359,7 @@ const Dashboard = () => {
     const fetchRecent = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res   = await axios.get(
-          `${import.meta.env.VITE_API_URL}/interview/sessions?limit=3`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        const res   = await api.get("/interview/sessions?limit=3");
         setRecent(res.data.sessions ?? res.data);
       } catch (err) {
         console.error("Failed to fetch recent sessions:", err);
@@ -377,8 +374,7 @@ const Dashboard = () => {
     setStarting(true);
     try {
       const token    = localStorage.getItem("token");
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/interview/start`,
+      const response = await api.post("/interview/start",
         {
           role,
           difficulty: difficulty.toLowerCase(),

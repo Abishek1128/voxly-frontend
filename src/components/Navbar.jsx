@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { LogOut, UserCircle, BarChart2 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
-import axios from "axios";
+import api from "../api";
 import logo from "../assets/logo8.png";
 
 const Navbar = () => {
@@ -28,9 +28,7 @@ const Navbar = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return;
-    axios.get(`${import.meta.env.VITE_API_URL}/auth/me`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    api.get("/auth/me")
     .then(res => setAvatar(res.data.avatar || null))
     .catch(() => {});
   }, []);

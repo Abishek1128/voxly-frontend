@@ -9,7 +9,7 @@ import {
   Trophy,
 } from "lucide-react";
 import Navbar from "../components/Navbar";
-import axios from "axios";
+import api from "../api";
 
 /* ─── helpers ─────────────────────────────────────────── */
 const ROLE_LABELS = {
@@ -414,12 +414,7 @@ const ActivityHistory = () => {
         sort: sortBy,
       });
 
-      const url = `${import.meta.env.VITE_API_URL}/interview/sessions?${params}`;
-      console.log("Fetching:", url);
-
-      const res = await axios.get(url, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await api.get(`/interview/sessions?${params}`);
 
       // Debug: log raw response
       console.log("Raw response:", res.data);

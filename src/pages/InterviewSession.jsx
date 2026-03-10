@@ -5,7 +5,7 @@
 // import { CheckCircle, AlertCircle, TrendingUp } from "lucide-react";
 // import { useLocation, useNavigate } from "react-router-dom";
 // import Navbar from "../components/Navbar";
-// import axios from "axios";
+// import api from "../api";
 
 // const InterviewSession = () => {
 //   const location    = useLocation();
@@ -315,7 +315,7 @@ import React, { useState, useRef } from "react";
 import { CheckCircle, AlertCircle, TrendingUp } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import axios from "axios";
+import api from "../api";
 
 const InterviewSession = () => {
   const location    = useLocation();
@@ -379,8 +379,7 @@ const InterviewSession = () => {
 
     try {
       setIsSubmitting(true);
-      const res  = await axios.post(
-        `${import.meta.env.VITE_API_URL}/interview/answer`,
+      const res  = await api.post("/interview/answer",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -393,7 +392,7 @@ const InterviewSession = () => {
       if (data.next_question?.completed) {
         // call summary endpoint first — this writes average_score + verdict to DB
         try {
-          await axios.get(`${import.meta.env.VITE_API_URL}/summary/${sessionId}`);
+          await api.get(`/summary/${sessionId}`);
         } catch (e) {
           console.warn("Summary save failed:", e);
         }

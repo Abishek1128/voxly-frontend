@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Share2, Zap, Star } from "lucide-react";
 import Navbar from "../components/Navbar";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 
 /* ─── helpers ─────────────────────────────────────────── */
 const ROLE_LABELS = {
@@ -65,7 +65,7 @@ const FinalReport = () => {
 
   useEffect(() => {
     if (!id) { setLoading(false); setError("no_id"); return; }
-    axios.get(`${import.meta.env.VITE_API_URL}/interview/report/${id}`, {
+    api.get(`/interview/report/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then(res => setData(res.data))
