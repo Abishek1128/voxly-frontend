@@ -108,14 +108,14 @@ const ProfilePage = () => {
   /* ── fetch profile + stats on mount ── */
   useEffect(() => {
     const headers = { Authorization: `Bearer ${token}` };
-    axios.get("http://127.0.0.1:8000/auth/me", { headers })
+    axios.get(`${import.meta.env.VITE_API_URL}/auth/me`, { headers })
       .then(res => {
         setForm({ name: res.data.name || "", email: res.data.email || "", bio: res.data.bio || "", role: res.data.role || "", location: res.data.location || "" });
         setAvatar(res.data.avatar || null);
       })
       .catch(() => setForm(f => ({ ...f, name: user?.name || "", email: user?.email || "" })));
 
-    axios.get("http://127.0.0.1:8000/auth/stats", { headers })
+    axios.get(`${import.meta.env.VITE_API_URL}/auth/stats`, { headers })
       .then(res => setStats(res.data))
       .catch(() => {});
   }, [token]);
@@ -135,7 +135,7 @@ const ProfilePage = () => {
     setSaveError(""); setSaving(true);
     try {
       await axios.put(
-        "http://127.0.0.1:8000/auth/me",
+        `${import.meta.env.VITE_API_URL}/auth/me`,
         { name: form.name, bio: form.bio, role: form.role, location: form.location, avatar },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -157,7 +157,7 @@ const ProfilePage = () => {
     setPwLoading(true);
     try {
       await axios.put(
-        "http://127.0.0.1:8000/auth/password",
+        `${import.meta.env.VITE_API_URL}/auth/password`,
         { current_password: passwords.current, new_password: passwords.newPass },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -173,7 +173,7 @@ const ProfilePage = () => {
   const handleDeleteAccount = async () => {
     setDeleteError(""); setDeleteLoading(true);
     try {
-      await axios.delete("http://127.0.0.1:8000/auth/me", {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/auth/me`, {
         headers: { Authorization: `Bearer ${token}` },
         data: { password: deletePassword },
       });
@@ -195,7 +195,7 @@ const ProfilePage = () => {
     setActivityLoading(true);
     try {
       const res  = await axios.get(
-        `http://127.0.0.1:8000/interview/sessions?page=${page}&limit=${ACTIVITY_LIMIT}&sort=newest`,
+        `${import.meta.env.VITE_API_URL}/interview/sessions?page=${page}&limit=${ACTIVITY_LIMIT}&sort=newest`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const list  = res.data.sessions ?? (Array.isArray(res.data) ? res.data : []);

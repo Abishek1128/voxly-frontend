@@ -15,7 +15,7 @@ const VerifyEmailPage = () => {
     if (!token) { setStatus("Invalid verification link ❌"); return; }
     const verify = async () => {
       try {
-        await axios.get(`http://localhost:8000/auth/verify?token=${token}`);
+        await axios.get(`${import.meta.env.VITE_API_URL}/auth/verify?token=${token}`);
         setStatus("Email verified successfully ✅");
         setTimeout(() => navigate("/dashboard"), 3000);
       } catch (error) {

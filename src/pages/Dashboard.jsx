@@ -360,7 +360,7 @@ const Dashboard = () => {
       try {
         const token = localStorage.getItem("token");
         const res   = await axios.get(
-          "http://127.0.0.1:8000/interview/sessions?limit=3",
+          `${import.meta.env.VITE_API_URL}/interview/sessions?limit=3`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setRecent(res.data.sessions ?? res.data);
@@ -378,7 +378,7 @@ const Dashboard = () => {
     try {
       const token    = localStorage.getItem("token");
       const response = await axios.post(
-        "http://127.0.0.1:8000/interview/start",
+        `${import.meta.env.VITE_API_URL}/interview/start`,
         {
           role,
           difficulty: difficulty.toLowerCase(),

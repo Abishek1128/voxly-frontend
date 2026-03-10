@@ -414,7 +414,7 @@ const ActivityHistory = () => {
         sort: sortBy,
       });
 
-      const url = `http://127.0.0.1:8000/interview/sessions?${params}`;
+      const url = `${import.meta.env.VITE_API_URL}/interview/sessions?${params}`;
       console.log("Fetching:", url);
 
       const res = await axios.get(url, {

@@ -28,7 +28,7 @@ const Navbar = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return;
-    axios.get("http://127.0.0.1:8000/auth/me", {
+    axios.get(`${import.meta.env.VITE_API_URL}/auth/me`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then(res => setAvatar(res.data.avatar || null))

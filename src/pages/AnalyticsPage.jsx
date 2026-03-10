@@ -99,8 +99,8 @@ const AnalyticsPage = () => {
   useEffect(() => {
     const headers = { Authorization: `Bearer ${token}` };
     Promise.all([
-      axios.get("http://127.0.0.1:8000/interview/sessions?limit=100&sort=oldest", { headers }),
-      axios.get("http://127.0.0.1:8000/auth/stats", { headers }),
+      axios.get(`${import.meta.env.VITE_API_URL}/interview/sessions?limit=100&sort=oldest`, { headers }),
+      axios.get(`${import.meta.env.VITE_API_URL}/auth/stats`, { headers }),
     ]).then(([sessRes, statsRes]) => {
       setSessions(sessRes.data.sessions ?? []);
       setStats(statsRes.data);

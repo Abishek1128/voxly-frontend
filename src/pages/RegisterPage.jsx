@@ -31,7 +31,7 @@ const RegisterPage = () => {
     if (!validate()) return;
     setLoading(true);
     try {
-      await axios.post("http://127.0.0.1:8000/auth/register", formData);
+      await axios.post(`${import.meta.env.VITE_API_URL}/auth/register`, formData);
       navigate("/check-email");
     } catch (error) {
       alert(error.response?.data?.detail || "Something went wrong");

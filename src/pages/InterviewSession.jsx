@@ -380,7 +380,7 @@ const InterviewSession = () => {
     try {
       setIsSubmitting(true);
       const res  = await axios.post(
-        "http://127.0.0.1:8000/interview/answer",
+        `${import.meta.env.VITE_API_URL}/interview/answer`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
@@ -393,7 +393,7 @@ const InterviewSession = () => {
       if (data.next_question?.completed) {
         // call summary endpoint first — this writes average_score + verdict to DB
         try {
-          await axios.get(`http://127.0.0.1:8000/interview/summary/${sessionId}`);
+          await axios.get(`${import.meta.env.VITE_API_URL}/summary/${sessionId}`);
         } catch (e) {
           console.warn("Summary save failed:", e);
         }

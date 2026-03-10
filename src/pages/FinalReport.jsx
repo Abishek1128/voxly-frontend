@@ -65,7 +65,7 @@ const FinalReport = () => {
 
   useEffect(() => {
     if (!id) { setLoading(false); setError("no_id"); return; }
-    axios.get(`http://127.0.0.1:8000/interview/report/${id}`, {
+    axios.get(`${import.meta.env.VITE_API_URL}/interview/report/${id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     .then(res => setData(res.data))
